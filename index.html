@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>动森图纸标注站</title>
+<link rel="icon" type="image/png" href="./logo111.png" />
+<link rel="apple-touch-icon" href="./logo111.png" />
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="titleRow">
+    <h1 class="titleBrand">
+      <img class="titleLogo" src="./logo111.png" alt="Animal Crossing Pattern Hub logo">
+      <span data-i18n="title">动森图纸标注站</span>
+    </h1>
+    <div class="topTools">
+      <button id="langToggle" class="toolBtn secondary" type="button">EN</button>
+      <button id="donateBtn" class="toolBtn" type="button" data-i18n="donate_button">打赏支持</button>
+    </div>
+  </div>
+  <div class="sub">
+    <div class="subFeatures">
+      <div class="subFeature">
+        <span class="subFeatureIcon">100+</span>
+        <span data-i18n="subtitle_batch">支持批量处理 100 张截图</span>
+      </div>
+      <div class="subFeature">
+        <span class="subFeatureIcon">✂</span>
+        <span data-i18n="subtitle_flow">自动裁切、拼接、标注</span>
+      </div>
+      <div class="subFeature">
+        <span class="subFeatureIcon">🎮</span>
+        <span data-i18n="subtitle_platform">支持 Switch / Lite / OLED</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <label class="dropzone" id="dropzone">
+        <div class="dropzoneInner">
+          <strong data-i18n="upload_prompt">拖入截图或点击上传文件夹</strong>
+          <div class="dropzoneStatus" id="status">等待截图…</div>
+        </div>
+      </label>
+      <input id="fileInput" type="file" accept="image/*" multiple webkitdirectory directory hidden />
+
+      <div class="actions">
+        <button id="processBtn" disabled><span class="btnIcon">✦</span><span class="btnLabel" data-i18n="start_button">开始标注</span></button>
+        <button id="downloadBtn" class="secondary" disabled><span class="btnIcon">⬇</span><span class="btnLabel" data-i18n="download_button">下载图片</span></button>
+        <button id="clearBtn" class="secondary"><span class="btnIcon">↺</span><span class="btnLabel" data-i18n="reset_button">重新开始</span></button>
+      </div>
+
+      <div id="stylePanelInline" class="stylePanelCard">
+        <div class="stylePanelHead">
+          <div class="styleHeadText">
+            <div class="stylePanelTitle" data-i18n="style_title">样式调整</div>
+            <div class="stylePanelDesc" data-i18n="style_desc">可切换 highlight、标注样式和文字颜色</div>
+          </div>
+          <button id="styleToggle" type="button" aria-label="展开或收起样式调整">▸</button>
+        </div>
+
+        <div class="styleBody">
+          <div class="styleGroup">
+            <div class="styleGroupLabel">
+              <strong data-i18n="highlight_label">Highlight</strong>
+              <span data-i18n="preset_count">3 个预设 + 1 个自定义</span>
+            </div>
+            <div class="styleGrid" id="highlightStyles"></div>
+          </div>
+
+          <div class="styleGroup">
+            <div class="styleGroupLabel">
+              <strong data-i18n="badge_label">标注样式</strong>
+              <span data-i18n="preset_count">3 个预设 + 1 个自定义</span>
+            </div>
+            <div class="styleGrid" id="badgeStyles"></div>
+          </div>
+
+          <div class="styleGroup">
+            <div class="styleGroupLabel">
+              <strong data-i18n="text_color_label">文字颜色</strong>
+              <span data-i18n="preset_count">3 个预设 + 1 个自定义</span>
+            </div>
+            <div class="styleGrid styleGridText" id="textStyles"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini miniCentered">
+        <span class="miniLabel" data-i18n="threshold_label">分类灵敏度：</span>
+        <div class="miniRangeRow">
+          <input id="thresholdSlider" type="range" min="0.70" max="0.99" step="0.01" value="0.96" style="width:180px; vertical-align:middle;">
+          <span id="thresholdVal">0.96</span>
+        </div>
+      </div>
+
+      <div class="credit creditInline">
+        <div class="subFeatures creditFeatures">
+          <div class="subFeature creditTextTag">
+            <span data-i18n="credit_tool_designer">工具设计师：不灵瓜</span>
+          </div>
+          <div class="subFeature creditTextTag">
+            <span data-i18n="credit_typeface_designer">字体设计师：鹿尤</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="classifiedGroups" class="groupBoxes"></div>
+    </div>
+
+    <div class="card">
+      <div class="previewWrap previewStage">
+        <div id="previewLoading" class="previewLoading"><div class="previewLoadingFrame" id="previewLoadingFrame"><img class="previewLoadingSnapshot" id="previewLoadingSnapshot" alt=""></div><div class="loadingHud"><img class="loadingLogo" src="./logo111.png" alt="Animal Crossing Pattern Hub logo"><div class="loadingBattery"><span class="batteryFill"></span></div></div></div>
+        <canvas id="preview" class="previewCanvas" width="1224" height="1633"></canvas>
+      </div>
+      <div class="groupPanelTitle" data-i18n="preview_title">点击预览</div>
+      <div id="outputGallery" class="outputGallery"></div>
+
+      <div id="rightClockWrap" class="rightClockWrap">
+        <div class="clockPanel">
+          <div class="clockMetaLeft">
+            <div class="clockDate" id="clockDate">--</div>
+            <div class="clockBless" data-i18n="clock_bless">早点休息哦宝贝</div>
+          </div>
+          <div class="clockMetaRight">
+            <div class="clockTime" id="clockTime">--:--:--</div>
+            <div class="clockCredit">@不灵瓜</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="donateModal" class="donateModal hidden" aria-hidden="true">
+  <div class="donateBackdrop" data-close-donate="true"></div>
+  <div class="donateCard" role="dialog" aria-modal="true" aria-labelledby="donateTitle">
+    <div class="donateHead">
+      <div>
+        <div id="donateTitle" class="donateTitle" data-i18n="donate_title">支持这个工具</div>
+        <div class="donateDesc" data-i18n="donate_desc">如果这个工具帮到了你，欢迎请作者喝杯咖啡。</div>
+      </div>
+      <button id="closeDonateBtn" class="secondary donateCloseBtn" type="button" data-i18n="donate_close">关闭</button>
+    </div>
+    <div class="donateGrid">
+      <div class="donateItem">
+        <img id="wechatQr" class="donateQr" alt="">
+        <div class="donateLabel" data-i18n="donate_wechat">微信</div>
+      </div>
+      <div class="donateItem">
+        <img id="alipayQr" class="donateQr" alt="">
+        <div class="donateLabel" data-i18n="donate_alipay">支付宝</div>
+      </div>
+    </div>
+    <div class="donateHint" data-i18n="donate_hint">当前使用占位二维码，后续可在 script.js 中替换为你自己的收款码。</div>
+  </div>
+</div>
+<script src="./script.js"></script>
+</body>
+</html>
