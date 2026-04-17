@@ -30,6 +30,7 @@
       "index.html",
       "style.css",
       "script.js",
+      "logo111.png",
       "build/**/*",
       "electron/**/*",
       "package.json"
