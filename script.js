@@ -170,7 +170,7 @@ const I18N = {
     donate_wechat: "微信",
     donate_alipay: "支付宝",
     donate_close: "关闭",
-    donate_hint: "当前使用占位二维码，后续可在 script.js 中替换为你自己的收款码。",
+    donate_hint: "🙇🏻 拜见各位原始股东 🙇🏻‍♀️",
     style_toggle_aria: "展开或收起更多样式",
     lang_toggle: "EN",
     donate_wechat_alt: "微信打赏码",
@@ -213,14 +213,14 @@ const I18N = {
     credit_tool_designer: "Tool Designer: Bulinggua",
     credit_typeface_designer: "Typeface Designer: Luyou",
     preview_title: "Preview Output",
-    clock_bless: "Remember to rest a little, babe",
+    clock_bless: "Tag it. Mark it. Share it.",
     donate_button: "Support",
     donate_title: "Support This Tool",
     donate_desc: "If this tool helped you, feel free to buy the author a coffee.",
     donate_wechat: "WeChat",
     donate_alipay: "Alipay",
     donate_close: "Close",
-    donate_hint: "Placeholder QR codes are shown for now. You can replace them with your own payment codes in script.js later.",
+    donate_hint: "🙇🏻 Thanks for helping this little project grow 🙇🏻‍♀️",
     style_toggle_aria: "Expand or collapse more styles",
     lang_toggle: "中文",
     donate_wechat_alt: "WeChat donation QR code",
@@ -243,8 +243,8 @@ const I18N = {
 };
 
 const DONATE_CONFIG = {
-  wechatQr: "",
-  alipayQr: "",
+  wechatQr: "./微信.png",
+  alipayQr: "./支付宝.png",
 };
 
 function createDonatePlaceholder(label) {

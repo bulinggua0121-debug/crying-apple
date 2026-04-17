@@ -1274,7 +1274,9 @@ html[lang="zh-CN"] .titleBrand span{
 .donateQr{
   display:block;
   width:min(100%, 220px);
-  aspect-ratio:1 / 1;
+  height:auto;
+  max-height:320px;
+  object-fit:contain;
   margin:0 auto;
   border-radius:14px;
   border:1px solid var(--line);
@@ -1288,9 +1290,12 @@ html[lang="zh-CN"] .titleBrand span{
 }
 .donateHint{
   margin-top:14px;
-  font-size:12px;
-  line-height:1.6;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.8;
+  letter-spacing:0.2px;
   color:var(--muted);
+  text-align:center;
 }
 
 
