@@ -243,8 +243,8 @@ const I18N = {
 };
 
 const DONATE_CONFIG = {
-  wechatQr: "./微信.png",
-  alipayQr: "./支付宝.png",
+  wechatQr: "./wechat-pay.png",
+  alipayQr: "./alipay-pay.png",
 };
 
 function createDonatePlaceholder(label) {

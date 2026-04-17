@@ -4,10 +4,10 @@ const { app, BrowserWindow, shell } = require("electron");
 function createWindow() {
   console.log("[main] createWindow called");
   const win = new BrowserWindow({
-    width: 1750,
+    width: 1200,
     height: 1280,
-    minWidth: 1400,
-    minHeight: 980,
+    minWidth: 700,
+    minHeight: 760,
     backgroundColor: "#F6F2E8",
     autoHideMenuBar: true,
     title: "Crying Apple",

@@ -31,6 +31,8 @@
       "style.css",
       "script.js",
       "logo111.png",
+      "wechat-pay.png",
+      "alipay-pay.png",
       "build/**/*",
       "electron/**/*",
       "package.json"
