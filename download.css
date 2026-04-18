@@ -76,12 +76,14 @@ body{
   display:flex;
   flex-wrap:wrap;
   justify-content:flex-start;
+  align-items:center;
   gap:8px;
   margin-right:auto;
 }
 .heroBadge{
   display:inline-flex;
   align-items:center;
+  justify-content:center;
   gap:8px;
   min-height:0;
   padding:2px 7px;
@@ -246,8 +248,12 @@ code{
   .hero, .panel{border-radius:22px;}
   .hero{padding:20px;grid-template-columns:1fr;}
   .heroBrand{align-items:flex-start;}
-  .heroActions{justify-content:flex-start;flex-wrap:wrap;}
-  .heroMeta{justify-content:flex-start;}
+  .heroActions{justify-content:center;flex-wrap:wrap;}
+  .heroMeta{
+    width:100%;
+    justify-content:center;
+    margin-right:0;
+  }
   .codeRow{flex-direction:column;}
   .copyBtn{width:100%;}
   .heroLogo{width:84px;height:84px;}

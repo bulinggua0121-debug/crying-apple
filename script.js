@@ -121,6 +121,7 @@ const state = {
 
 const runtime = {
   isElectron: /Electron/i.test(navigator.userAgent || ""),
+  isMobile: /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || ""),
 };
 
 const els = {
@@ -417,6 +418,37 @@ function paintActionButton(btn, active) {
     icon.style.background = active ? "rgba(255,255,255,.22)" : "rgba(87,83,71,.08)";
     icon.style.color = active ? "#FFFFFF" : "inherit";
   }
+}
+
+function getActiveOutputItem() {
+  const item = state.outputs[state.activeOutputIndex];
+  return item || state.outputs[0] || null;
+}
+
+async function downloadCurrentOutputForMobile() {
+  const item = getActiveOutputItem();
+  if (!item || !item.blob) return false;
+
+  const file = new File([item.blob], item.name || "switch-design-merged.png", {
+    type: item.blob.type || "image/png",
+  });
+
+  // On mobile, prefer the native share/save sheet so users can save to Photos.
+  if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+    await navigator.share({
+      files: [file],
+      title: item.name || "Crying Apple",
+    });
+    return true;
+  }
+
+  const a = document.createElement("a");
+  a.href = item.blobUrl || URL.createObjectURL(item.blob);
+  a.download = item.name || "switch-design-merged.png";
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.click();
+  return true;
 }
 
 function setActionButtonsIdle() {
@@ -1589,7 +1621,7 @@ async function processImages() {
       hidePreviewLoading();
     }
 
-    if (outputs.length === 1) {
+    if (outputs.length === 1 || runtime.isMobile) {
       state.renderedBlobUrl = URL.createObjectURL(outputs[0].blob);
       state.downloadName = outputs[0].name;
     } else {
@@ -1767,16 +1799,27 @@ els.dropzone.addEventListener("click", e => {
 els.processBtn.addEventListener("click", processImages);
 
 els.downloadBtn.addEventListener("click", () => {
-  if (!state.renderedBlobUrl) return;
-  const a = document.createElement("a");
-  a.href = state.renderedBlobUrl;
-  a.download = state.downloadName || "switch-design-merged.png";
-  a.click();
-  state.uploadPromptKey = "upload_downloaded";
-  if (els.dropzone) els.dropzone.classList.remove("loaded");
-  setStatusMessage("status_waiting");
-  syncUploadPrompt();
-  setActionButtonsDownloadedReset();
+  (async () => {
+    if (runtime.isMobile) {
+      const handled = await downloadCurrentOutputForMobile();
+      if (!handled) return;
+    } else {
+      if (!state.renderedBlobUrl) return;
+      const a = document.createElement("a");
+      a.href = state.renderedBlobUrl;
+      a.download = state.downloadName || "switch-design-merged.png";
+      a.click();
+    }
+
+    state.uploadPromptKey = "upload_downloaded";
+    if (els.dropzone) els.dropzone.classList.remove("loaded");
+    setStatusMessage("status_waiting");
+    syncUploadPrompt();
+    setActionButtonsDownloadedReset();
+  })().catch(error => {
+    console.error(error);
+    setStatusMessage("status_failed", { message: error.message || "Download failed" });
+  });
 });
 
 els.clearBtn.addEventListener("click", clearAll);
