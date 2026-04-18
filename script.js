@@ -173,6 +173,7 @@ const I18N = {
     preview_title: "点击预览",
     clock_bless: "早点休息哦宝贝",
     donate_button_web: "macOS客户端",
+    donate_button_mobile: "打赏支持",
     donate_title_web: "下载与支持",
     donate_desc_web: "桌面版下载入口和支持二维码都在这里。",
     donate_button_desktop: "打赏支持",
@@ -228,6 +229,7 @@ const I18N = {
     preview_title: "Preview Output",
     clock_bless: "Tag it. Mark it. Share it.",
     donate_button_web: "Desktop for macOS",
+    donate_button_mobile: "Support the Project",
     donate_title_web: "Download & Support",
     donate_desc_web: "The desktop download entry and support QR codes are both here.",
     donate_button_desktop: "Support the Project",
@@ -309,6 +311,9 @@ function syncDonateAssets() {
 }
 
 function getDonateMessageKey(baseKey) {
+  if (!runtime.isElectron && runtime.isMobile && baseKey === "donate_button") {
+    return `${baseKey}_mobile`;
+  }
   return runtime.isElectron ? `${baseKey}_desktop` : `${baseKey}_web`;
 }
 
@@ -425,7 +430,22 @@ function getActiveOutputItem() {
   return item || state.outputs[0] || null;
 }
 
-async function downloadCurrentOutputForMobile() {
+async function downloadOutputsForMobile() {
+  if (!state.outputs.length) return false;
+
+  const files = state.outputs.map(item => new File([item.blob], item.name || "switch-design-merged.png", {
+    type: item.blob.type || "image/png",
+  }));
+
+  // Prefer sharing all generated images at once on mobile.
+  if (files.length > 1 && navigator.share && navigator.canShare && navigator.canShare({ files })) {
+    await navigator.share({
+      files,
+      title: "Crying Apple",
+    });
+    return true;
+  }
+
   const item = getActiveOutputItem();
   if (!item || !item.blob) return false;
 
@@ -1112,7 +1132,7 @@ function drawBadgeNumber(targetCtx, value, pos) {
   targetCtx.drawImage(badgeImg, pos.x, pos.y, size, size);
   targetCtx.save();
   targetCtx.fillStyle = state.style?.text || CONFIG.badge.color;
-  targetCtx.font = `700 ${CONFIG.badge.fontSize}px "${CONFIG.badge.fontFamily}"`;
+  targetCtx.font = `500 ${CONFIG.badge.fontSize}px "${CONFIG.badge.fontFamily}"`;
   targetCtx.textAlign = "center";
   targetCtx.textBaseline = "middle";
   targetCtx.fillText(String(value), pos.x + size / 2, pos.y + size / 2 - 1);
@@ -1801,8 +1821,14 @@ els.processBtn.addEventListener("click", processImages);
 els.downloadBtn.addEventListener("click", () => {
   (async () => {
     if (runtime.isMobile) {
-      const handled = await downloadCurrentOutputForMobile();
-      if (!handled) return;
+      const handled = await downloadOutputsForMobile();
+      if (!handled) {
+        if (!state.renderedBlobUrl) return;
+        const a = document.createElement("a");
+        a.href = state.renderedBlobUrl;
+        a.download = state.downloadName || "switch-design-merged.png";
+        a.click();
+      }
     } else {
       if (!state.renderedBlobUrl) return;
       const a = document.createElement("a");
