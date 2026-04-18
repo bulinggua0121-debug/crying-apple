@@ -42,7 +42,7 @@ body{
 .heroBrand{
   display:flex;
   gap:22px;
-  align-items:flex-start;
+  align-items:center;
 }
 .heroCopy{
   flex:1 1 auto;
@@ -67,20 +67,57 @@ body{
 }
 .heroActions{
   display:flex;
-  justify-content:flex-start;
+  justify-content:space-between;
   align-items:center;
-  margin-top:16px;
+  gap:10px;
+  margin-top:18px;
+}
+.heroMeta{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  gap:8px;
+  margin-right:auto;
+}
+.heroBadge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:0;
+  padding:2px 7px;
+  border-radius:999px;
+  background:#efe7d8;
+  color:var(--text);
+  font-size:11px;
+  font-weight:400;
+  line-height:1.25;
+  white-space:nowrap;
+}
+.heroBadgeIcon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:15px;
+  height:15px;
+  border-radius:999px;
+  background:rgba(87,69,58,.08);
+  color:#7d6759;
+  font-size:9px;
+  font-weight:600;
+  line-height:1;
 }
 .cta{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:156px;
-  height:48px;
-  padding:0 22px;
+  min-width:136px;
+  height:44px;
+  padding:0 18px;
   border-radius:25px;
   text-decoration:none;
   font-weight:800;
+  font-size:15px;
+  line-height:1;
   white-space:nowrap;
 }
 .cta.primary{
@@ -149,14 +186,16 @@ code{
 }
 .copyBtn{
   flex:0 0 auto;
-  min-width:72px;
-  padding:0 14px;
+  min-width:136px;
+  height:44px;
+  padding:0 18px;
   border:none;
-  border-radius:16px;
+  border-radius:25px;
   background:var(--green);
   color:#fff;
   font-weight:800;
-  font-size:13px;
+  font-size:15px;
+  line-height:1;
   cursor:pointer;
 }
 .copyBtn:disabled{
@@ -172,14 +211,19 @@ code{
 .codeBlock{
   margin-top:0;
   flex:1 1 auto;
-  padding:13px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:10px 12px;
   border-radius:18px;
   background:#efe7d8;
   border:1px solid var(--line);
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:13px;
-  font-weight:700;
-  line-height:1.5;
+  font-size:12px;
+  font-weight:600;
+  line-height:1.4;
+  text-align:center;
   color:#5a483c;
   white-space:nowrap;
   overflow-x:auto;
@@ -202,9 +246,10 @@ code{
   .hero, .panel{border-radius:22px;}
   .hero{padding:20px;grid-template-columns:1fr;}
   .heroBrand{align-items:flex-start;}
-  .heroActions{justify-content:flex-start;}
+  .heroActions{justify-content:flex-start;flex-wrap:wrap;}
+  .heroMeta{justify-content:flex-start;}
   .codeRow{flex-direction:column;}
-  .copyBtn{width:100%;height:44px;}
+  .copyBtn{width:100%;}
   .heroLogo{width:84px;height:84px;}
   .hero h1{font-size:28px;}
 }

@@ -3,74 +3,152 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Crying Apple 下载页</title>
+<title data-i18n="page_title">Crying Apple 下载页</title>
 <link rel="icon" type="image/png" href="./logo111.png" />
 <link rel="stylesheet" href="./download.css" />
 </head>
 <body>
   <main class="pageShell">
-    <a class="backLink" href="./index.html">返回工具</a>
+    <a class="backLink" href="./index.html" data-i18n="back_link">返回工具</a>
     <header class="hero">
       <div class="heroBrand">
         <img class="heroLogo" src="./logo111.png" alt="Crying Apple logo" />
         <div class="heroCopy">
-          <h1>动森图纸标注工具macOS安装说明</h1>
-          <p>在线下载页先行版。当前测试版可从 Direct DMG 获取最新的 macOS DMG。</p>
-          <div class="heroActions">
-            <a class="cta primary" href="https://github.com/bulinggua0121-debug/crying-apple/releases/download/v0.1.0/Crying.Apple-1.0.0-arm64.dmg" target="_blank" rel="noopener">点击下载</a>
-          </div>
+          <h1 data-i18n="hero_title">动森图纸标注工具macOS安装说明</h1>
+          <p data-i18n="hero_desc">在线下载页先行版。当前测试版可从 Direct DMG 获取最新的 macOS DMG。</p>
         </div>
+      </div>
+      <div class="heroActions">
+        <div class="heroMeta">
+          <span class="heroBadge">
+            <span class="heroBadgeIcon">✦</span>
+            <span data-i18n="designer_tool">工具设计师：不灵瓜</span>
+          </span>
+          <span class="heroBadge">
+            <span class="heroBadgeIcon">Aa</span>
+            <span data-i18n="designer_font">字体设计师：鹿尤</span>
+          </span>
+        </div>
+        <a class="cta primary" href="https://github.com/bulinggua0121-debug/crying-apple/releases/download/v0.1.0/Crying.Apple-1.0.0-arm64.dmg" target="_blank" rel="noopener" data-i18n="download_cta">点击下载</a>
       </div>
     </header>
 
     <section class="panel stepsPanel">
       <ol class="steps">
-        <li>点击上方 <code>点击下载</code>，直接下载最新的 <code>macOS DMG</code>。</li>
-        <li>打开 <code>dmg</code>，把 <code>Crying Apple.app</code> 拖到 <code>Applications</code>。</li>
-        <li>如果系统提示“已损坏”或无法打开，请在终端运行下面这句：</li>
+        <li data-i18n="step_1">点击上方 <code>点击下载</code>，直接下载最新的 <code>macOS DMG</code> 安装包。</li>
+        <li data-i18n="step_2">打开 <code>dmg</code> 后，将 <code>Crying Apple.app</code> 拖到 <code>Applications</code>。</li>
+        <li data-i18n="step_3">如果系统提示“已损坏”或无法打开，请打开终端，黏贴下面这句并按回车键即可正常使用：</li>
       </ol>
-      <div class="codeRow"><div class="codeBlock" id="installCommand">xattr -dr com.apple.quarantine "/Applications/Crying Apple.app"</div><button class="copyBtn" id="copyInstallCommand" type="button">复制</button></div>
-      <p class="stepsHint">4. 运行后再回到应用程序里打开一次即可，运行一次后可以正常打开。</p>
+      <div class="codeRow"><div class="codeBlock" id="installCommand">xattr -dr com.apple.quarantine "/Applications/Crying Apple.app"</div><button class="copyBtn" id="copyInstallCommand" type="button" data-i18n="copy">复制</button></div>
     </section>
 
     <section class="panel infoPanel">
       <div class="infoCard">
-        <div class="infoTitle">当前提供</div>
-        <div class="infoValue">macOS DMG</div>
-        <p>已验证可打开、可显示界面、可调整窗口大小。</p>
+        <div class="infoTitle" data-i18n="info_1_title">当前提供</div>
+        <div class="infoValue" data-i18n="info_1_value">macOS DMG</div>
+        <p data-i18n="info_1_desc">已验证可打开、可显示界面、可调整窗口大小。</p>
       </div>
       <div class="infoCard">
-        <div class="infoTitle">当前阶段</div>
-        <div class="infoValue">测试版</div>
-        <p>Windows 版本后续再补，当前先上一个稳定可用的 mac 版本。</p>
+        <div class="infoTitle" data-i18n="info_2_title">当前阶段</div>
+        <div class="infoValue" data-i18n="info_2_value">测试版</div>
+        <p data-i18n="info_2_desc">Windows 版本后续再补，当前先上一个稳定可用的 mac 版本。</p>
       </div>
       <div class="infoCard">
-        <div class="infoTitle">下载方式</div>
-        <div class="infoValue">Direct DMG</div>
-        <p>按钮已直连当前发布版本的 <code>dmg</code> 文件，可直接下载。</p>
+        <div class="infoTitle" data-i18n="info_3_title">下载方式</div>
+        <div class="infoValue" data-i18n="info_3_value">Direct DMG</div>
+        <p data-i18n="info_3_desc">按钮已直连当前发布版本的 <code>dmg</code> 文件，可直接下载。</p>
       </div>
     </section>
 
-    <div class="pageCredit">@Crying Apple</div>
+    <div class="pageCredit">@ Crying Apple · 不灵瓜</div>
   </main>
 <script>
+const state = {
+  lang: localStorage.getItem("ac_tool_lang") === "en" ? "en" : "zh",
+};
+
+const I18N = {
+  zh: {
+    page_title: "Crying Apple 下载页",
+    back_link: "返回工具",
+    hero_title: "动森图纸标注工具macOS安装说明",
+    hero_desc: "在线下载页先行版。当前测试版可从 Direct DMG 获取最新的 macOS DMG。",
+    designer_tool: "工具设计师：不灵瓜",
+    designer_font: "字体设计师：鹿尤",
+    download_cta: "点击下载",
+    step_1: "点击上方 <code>点击下载</code>，直接下载最新的 <code>macOS DMG</code> 安装包。",
+    step_2: "打开 <code>dmg</code> 后，将 <code>Crying Apple.app</code> 拖到 <code>Applications</code>。",
+    step_3: "如果系统提示“已损坏”或无法打开，请打开终端，黏贴下面这句并按回车键即可正常使用：",
+    copy: "复制",
+    copied: "已复制",
+    copy_failed: "复制失败",
+    info_1_title: "当前提供",
+    info_1_value: "macOS DMG",
+    info_1_desc: "已验证可打开、可显示界面、可调整窗口大小。",
+    info_2_title: "当前阶段",
+    info_2_value: "测试版",
+    info_2_desc: "Windows 版本后续再补，当前先上一个稳定可用的 mac 版本。",
+    info_3_title: "下载方式",
+    info_3_value: "Direct DMG",
+    info_3_desc: "按钮已直连当前发布版本的 <code>dmg</code> 文件，可直接下载。"
+  },
+  en: {
+    page_title: "Crying Apple Download",
+    back_link: "Back to Tool",
+    hero_title: "Animal Crossing Pattern Tool macOS Install Guide",
+    hero_desc: "Early download page preview. The current test build provides the latest macOS DMG via Direct DMG.",
+    designer_tool: "Tool Designer: Bulinggua",
+    designer_font: "Typeface Designer: Luyou",
+    download_cta: "Download",
+    step_1: "Click <code>Download</code> above to get the latest <code>macOS DMG</code> installer.",
+    step_2: "Open the <code>dmg</code>, then drag <code>Crying Apple.app</code> into <code>Applications</code>.",
+    step_3: "If macOS says the app is damaged or can't be opened, open Terminal, paste the command below, and press Enter to use it normally:",
+    copy: "Copy",
+    copied: "Copied",
+    copy_failed: "Copy Failed",
+    info_1_title: "Available Now",
+    info_1_value: "macOS DMG",
+    info_1_desc: "Verified to launch, display correctly, and support window resizing.",
+    info_2_title: "Current Stage",
+    info_2_value: "Test Build",
+    info_2_desc: "Windows support will come later. For now, this page ships a stable and usable mac version first.",
+    info_3_title: "Delivery",
+    info_3_value: "Direct DMG",
+    info_3_desc: "The button links directly to the current release <code>dmg</code> file for immediate download."
+  }
+};
+
+function getMessage(key) {
+  const pack = I18N[state.lang] || I18N.zh;
+  return pack[key] != null ? pack[key] : key;
+}
+
+function applyLanguage() {
+  document.documentElement.lang = state.lang === "en" ? "en" : "zh-CN";
+  document.title = getMessage("page_title");
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    el.innerHTML = getMessage(el.dataset.i18n);
+  });
+}
+
 const copyBtn = document.getElementById("copyInstallCommand");
 const installCommand = document.getElementById("installCommand");
+applyLanguage();
 if (copyBtn && installCommand) {
   copyBtn.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(installCommand.textContent.trim());
       const original = copyBtn.textContent;
-      copyBtn.textContent = "已复制";
+      copyBtn.textContent = getMessage("copied");
       copyBtn.disabled = true;
       setTimeout(() => {
         copyBtn.textContent = original;
         copyBtn.disabled = false;
       }, 1400);
     } catch (error) {
-      copyBtn.textContent = "复制失败";
+      copyBtn.textContent = getMessage("copy_failed");
       setTimeout(() => {
-        copyBtn.textContent = "复制";
+        copyBtn.textContent = getMessage("copy");
       }, 1400);
     }
   });
