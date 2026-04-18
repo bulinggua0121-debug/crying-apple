@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Crying Apple 下载页</title>
+<link rel="icon" type="image/png" href="./logo111.png" />
+<link rel="stylesheet" href="./download.css" />
+</head>
+<body>
+  <main class="pageShell">
+    <a class="backLink" href="./index.html">返回工具</a>
+    <header class="hero">
+      <div class="heroBrand">
+        <img class="heroLogo" src="./logo111.png" alt="Crying Apple logo" />
+        <div class="heroCopy">
+          <h1>动森图纸标注工具macOS安装说明</h1>
+          <p>在线下载页先行版。当前测试版可从 Direct DMG 获取最新的 macOS DMG。</p>
+          <div class="heroActions">
+            <a class="cta primary" href="https://github.com/bulinggua0121-debug/crying-apple/releases/download/v0.1.0/Crying.Apple-1.0.0-arm64.dmg" target="_blank" rel="noopener">点击下载</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel stepsPanel">
+      <ol class="steps">
+        <li>点击上方 <code>点击下载</code>，直接下载最新的 <code>macOS DMG</code>。</li>
+        <li>打开 <code>dmg</code>，把 <code>Crying Apple.app</code> 拖到 <code>Applications</code>。</li>
+        <li>如果系统提示“已损坏”或无法打开，请在终端运行下面这句：</li>
+      </ol>
+      <div class="codeRow"><div class="codeBlock" id="installCommand">xattr -dr com.apple.quarantine "/Applications/Crying Apple.app"</div><button class="copyBtn" id="copyInstallCommand" type="button">复制</button></div>
+      <p class="stepsHint">4. 运行后再回到应用程序里打开一次即可，运行一次后可以正常打开。</p>
+    </section>
+
+    <section class="panel infoPanel">
+      <div class="infoCard">
+        <div class="infoTitle">当前提供</div>
+        <div class="infoValue">macOS DMG</div>
+        <p>已验证可打开、可显示界面、可调整窗口大小。</p>
+      </div>
+      <div class="infoCard">
+        <div class="infoTitle">当前阶段</div>
+        <div class="infoValue">测试版</div>
+        <p>Windows 版本后续再补，当前先上一个稳定可用的 mac 版本。</p>
+      </div>
+      <div class="infoCard">
+        <div class="infoTitle">下载方式</div>
+        <div class="infoValue">Direct DMG</div>
+        <p>按钮已直连当前发布版本的 <code>dmg</code> 文件，可直接下载。</p>
+      </div>
+    </section>
+
+    <div class="pageCredit">@Crying Apple</div>
+  </main>
+<script>
+const copyBtn = document.getElementById("copyInstallCommand");
+const installCommand = document.getElementById("installCommand");
+if (copyBtn && installCommand) {
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(installCommand.textContent.trim());
+      const original = copyBtn.textContent;
+      copyBtn.textContent = "已复制";
+      copyBtn.disabled = true;
+      setTimeout(() => {
+        copyBtn.textContent = original;
+        copyBtn.disabled = false;
+      }, 1400);
+    } catch (error) {
+      copyBtn.textContent = "复制失败";
+      setTimeout(() => {
+        copyBtn.textContent = "复制";
+      }, 1400);
+    }
+  });
+}
+</script>
+</body>
+</html>

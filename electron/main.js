@@ -1,6 +1,14 @@
 const path = require("path");
 const { app, BrowserWindow, shell } = require("electron");
 
+let mainWindow = null;
+
+const gotSingleInstanceLock = app.requestSingleInstanceLock();
+
+if (!gotSingleInstanceLock) {
+  app.quit();
+}
+
 function createWindow() {
   console.log("[main] createWindow called");
   const win = new BrowserWindow({
@@ -23,9 +31,6 @@ function createWindow() {
   win.once("ready-to-show", () => {
     console.log("[main] ready-to-show");
     win.show();
-    win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
-    win.setVisibleOnAllWorkspaces(false);
-    win.moveTop();
     win.focus();
   });
 
@@ -56,20 +61,43 @@ function createWindow() {
     shell.openExternal(url);
     return { action: "deny" };
   });
+
+  mainWindow = win;
+  win.on("closed", () => {
+    if (mainWindow === win) {
+      mainWindow = null;
+    }
+  });
 }
 
-app.whenReady().then(() => {
-  console.log("[main] app ready");
-  if (process.platform === "darwin" && app.dock) {
-    app.dock.setIcon(path.join(__dirname, "..", "build", "icon-512.png"));
-  }
+if (gotSingleInstanceLock) {
+  app.on("second-instance", () => {
+    if (!mainWindow) {
+      createWindow();
+      return;
+    }
 
-  createWindow();
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore();
+    }
 
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    mainWindow.show();
+    mainWindow.focus();
   });
-});
+
+  app.whenReady().then(() => {
+    console.log("[main] app ready");
+    if (process.platform === "darwin" && app.dock) {
+      app.dock.setIcon(path.join(__dirname, "..", "build", "icon-512.png"));
+    }
+
+    createWindow();
+
+    app.on("activate", () => {
+      if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    });
+  });
+}
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();

@@ -812,6 +812,7 @@ code {
   font-size:12px;
   line-height:1.4;
   color:var(--muted);
+  font-style:italic;
 }
 @media (max-width: 600px){
   .clockPanel{
@@ -1209,7 +1210,7 @@ html[lang="zh-CN"] .titleBrand span{
 #donateBtn{
   background:#33B4A7;
   color:#fff;
-  width:96px;
+  width:164px;
   padding:0;
 }
 .donateModal{
@@ -1297,7 +1298,19 @@ html[lang="zh-CN"] .titleBrand span{
   color:var(--muted);
   text-align:center;
 }
-
+.donateHintDesktop{
+  margin-top:10px;
+}
+.donateHintLink{
+  color:inherit;
+  font-weight:800;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-thickness:1.5px;
+}
+.donateHintLink:hover{
+  opacity:.78;
+}
 
 
 /* safe threshold one-line fix */

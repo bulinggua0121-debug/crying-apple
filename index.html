@@ -17,7 +17,7 @@
     </h1>
     <div class="topTools">
       <button id="langToggle" class="toolBtn secondary" type="button">EN</button>
-      <button id="donateBtn" class="toolBtn" type="button" data-i18n="donate_button">打赏支持</button>
+      <button id="donateBtn" class="toolBtn" type="button" data-i18n="donate_button">点击下载</button>
     </div>
   </div>
   <div class="sub">
@@ -127,7 +127,7 @@
           </div>
           <div class="clockMetaRight">
             <div class="clockTime" id="clockTime">--:--:--</div>
-            <div class="clockCredit">@不灵瓜</div>
+            <div class="clockCredit">@ Crying Apple</div>
           </div>
         </div>
       </div>
@@ -156,7 +156,11 @@
         <div class="donateLabel" data-i18n="donate_alipay">支付宝</div>
       </div>
     </div>
-    <div class="donateHint" data-i18n="donate_hint">当前使用占位二维码，后续可在 script.js 中替换为你自己的收款码。</div>
+    <div id="donateHint" class="donateHint">
+      <span data-i18n="donate_hint_before">🙇🏻 拜见各位原始股东</span>
+      <a id="donateDownloadLink" class="donateHintLink" href="./download.html" data-i18n="download_inline">点击下载</a>
+      <span id="donateHintAfter" data-i18n="donate_hint_after">🙇🏻‍♀️</span>
+    </div>
   </div>
 </div>
 <script src="./script.js"></script>

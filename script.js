@@ -119,6 +119,10 @@ const state = {
   previewToken: 0,
 };
 
+const runtime = {
+  isElectron: /Electron/i.test(navigator.userAgent || ""),
+};
+
 const els = {
   fileInput: document.getElementById("fileInput"),
   dropzone: document.getElementById("dropzone"),
@@ -136,6 +140,9 @@ const els = {
   closeDonateBtn: document.getElementById("closeDonateBtn"),
   wechatQr: document.getElementById("wechatQr"),
   alipayQr: document.getElementById("alipayQr"),
+  donateHint: document.getElementById("donateHint"),
+  donateDownloadLink: document.getElementById("donateDownloadLink"),
+  donateHintAfter: document.getElementById("donateHintAfter"),
 };
 const ctx = els.canvas.getContext("2d");
 
@@ -164,13 +171,18 @@ const I18N = {
     credit_typeface_designer: "字体设计师：鹿尤",
     preview_title: "点击预览",
     clock_bless: "早点休息哦宝贝",
-    donate_button: "打赏支持",
-    donate_title: "支持这个工具",
-    donate_desc: "如果这个工具帮到了你，欢迎请作者喝杯咖啡。",
+    donate_button_web: "macOS客户端",
+    donate_title_web: "下载与支持",
+    donate_desc_web: "桌面版下载入口和支持二维码都在这里。",
+    donate_button_desktop: "打赏支持",
+    donate_title_desktop: "支持这个工具",
+    donate_desc_desktop: "如果这个工具帮到了你，欢迎请作者喝杯咖啡。",
     donate_wechat: "微信",
     donate_alipay: "支付宝",
     donate_close: "关闭",
-    donate_hint: "🙇🏻 拜见各位原始股东 🙇🏻‍♀️",
+    donate_hint_before: "🙇🏻 拜见各位原始股东",
+    donate_hint_after: "🙇🏻‍♀️",
+    download_inline: "点击下载",
     style_toggle_aria: "展开或收起更多样式",
     lang_toggle: "EN",
     donate_wechat_alt: "微信打赏码",
@@ -214,13 +226,18 @@ const I18N = {
     credit_typeface_designer: "Typeface Designer: Luyou",
     preview_title: "Preview Output",
     clock_bless: "Tag it. Mark it. Share it.",
-    donate_button: "Support",
-    donate_title: "Support This Tool",
-    donate_desc: "If this tool helped you, feel free to buy the author a coffee.",
+    donate_button_web: "Desktop for macOS",
+    donate_title_web: "Download & Support",
+    donate_desc_web: "The desktop download entry and support QR codes are both here.",
+    donate_button_desktop: "Support the Project",
+    donate_title_desktop: "Support This Tool",
+    donate_desc_desktop: "If this tool helped you, you can support the project with a coffee.",
     donate_wechat: "WeChat",
     donate_alipay: "Alipay",
     donate_close: "Close",
-    donate_hint: "🙇🏻 Thanks for helping this little project grow 🙇🏻‍♀️",
+    donate_hint_before: "🙇🏻 Thanks for helping this little project grow",
+    donate_hint_after: "🙇🏻‍♀️",
+    download_inline: "Click to Download",
     style_toggle_aria: "Expand or collapse more styles",
     lang_toggle: "中文",
     donate_wechat_alt: "WeChat donation QR code",
@@ -290,6 +307,34 @@ function syncDonateAssets() {
   }
 }
 
+function getDonateMessageKey(baseKey) {
+  return runtime.isElectron ? `${baseKey}_desktop` : `${baseKey}_web`;
+}
+
+function syncDonateUI() {
+  if (els.donateBtn) {
+    els.donateBtn.textContent = getMessage(getDonateMessageKey("donate_button"));
+  }
+
+  const donateTitle = document.querySelector('[data-i18n="donate_title"]');
+  if (donateTitle) {
+    donateTitle.textContent = getMessage(getDonateMessageKey("donate_title"));
+  }
+
+  const donateDesc = document.querySelector('[data-i18n="donate_desc"]');
+  if (donateDesc) {
+    donateDesc.textContent = getMessage(getDonateMessageKey("donate_desc"));
+  }
+
+  if (els.donateDownloadLink) {
+    els.donateDownloadLink.hidden = runtime.isElectron;
+  }
+
+  if (els.donateHint) {
+    els.donateHint.classList.toggle("donateHintDesktop", runtime.isElectron);
+  }
+}
+
 function applyLanguage() {
   document.documentElement.lang = state.lang === "en" ? "en" : "zh-CN";
   document.title = getMessage("page_title");
@@ -308,6 +353,7 @@ function applyLanguage() {
   rerenderStatus();
   updateClockUI();
   syncDonateAssets();
+  syncDonateUI();
 }
 
 function toggleLanguage() {
