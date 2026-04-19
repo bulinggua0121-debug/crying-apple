@@ -726,7 +726,7 @@ code {
       justify-content:center;
     }
     html.realMobile body:not(.hasGeneratedResults) .card:first-child{
-      margin-bottom:188px;
+      margin-bottom:208px;
       padding-bottom:20px;
     }
     html.realMobile body:not(.hasGeneratedResults) .card:first-child .actions{
@@ -742,10 +742,13 @@ code {
       position:absolute;
       left:14px;
       right:14px;
-      top:calc(100% + 108px);
+      top:calc(100% + 128px);
       bottom:auto;
       width:auto;
       margin:0 !important;
+    }
+    html.realMobile .card:first-child .dropzone{
+      min-height:274px;
     }
     body.hasGeneratedResults .card:first-child .creditInline{
       position:static;
