@@ -2020,11 +2020,17 @@ html[lang="zh-CN"] .titleBrand span{
     transform:translateY(0) !important;
   }
   html:not(.realMobile) .creditFeatures{
-    gap:8px !important;
+    width:max-content !important;
+    max-width:100% !important;
+    margin:0 auto !important;
+    gap:6px !important;
+    transform:scale(.9) !important;
+    transform-origin:center top !important;
   }
   html:not(.realMobile) .creditFeatures .subFeature{
-    font-size:10px !important;
-    line-height:1.45 !important;
+    font-size:9px !important;
+    line-height:1.35 !important;
+    letter-spacing:-0.1px !important;
     white-space:nowrap !important;
   }
 }
