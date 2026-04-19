@@ -756,7 +756,7 @@ code {
       width:auto;
       margin:0 !important;
     }
-    html.realMobile body.hasGeneratedResults .card:first-child{
+    html.realMobile body.hasGeneratedResults .grid > .card:last-child{
       margin-top:10px;
     }
     html.realMobile .card:first-child .dropzone{
