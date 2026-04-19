@@ -1824,10 +1824,12 @@ html[lang="zh-CN"] .titleBrand span{
     overflow:visible !important;
     margin-bottom:0 !important;
     padding-top:18px !important;
+    padding-bottom:20px !important;
     min-height:auto !important;
   }
   html:not(.realMobile) body.hasGeneratedResults .card:first-child{
     padding-top:18px !important;
+    padding-bottom:20px !important;
     border:1px solid rgba(221,214,200,.92) !important;
     background:rgba(255,253,248,.92) !important;
     box-shadow:0 10px 24px rgba(88,72,36,0.08) !important;
@@ -1928,9 +1930,9 @@ html[lang="zh-CN"] .titleBrand span{
     position:relative !important;
     width:auto !important;
     align-self:auto !important;
-    margin-top:20px !important;
-    margin-bottom:12px !important;
-    padding-top:28px !important;
+    margin-top:18px !important;
+    margin-bottom:0 !important;
+    padding-top:18px !important;
     border-top:none !important;
   }
   html:not(.realMobile) .card:first-child .creditInline::before{
@@ -1945,6 +1947,10 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) .card:first-child .creditTextTag{
     transform:translateY(10px) !important;
+  }
+  html:not(.realMobile) .creditFeatures{
+    flex-wrap:wrap !important;
+    row-gap:8px !important;
   }
 }
 
@@ -2004,6 +2010,6 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) .creditTextTag{
     width:100% !important;
-    transform:translateY(6px) !important;
+    transform:translateY(0) !important;
   }
 }
