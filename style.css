@@ -99,7 +99,7 @@
     justify-content: center;
     text-align: center;
     padding: 18px;
-    background: #F0ECE2;
+    background: #FBF8F1;
     transition: .2s ease;
     cursor: pointer;
   }
@@ -108,6 +108,21 @@
   }
 .dropzone.mobileResultHidden{
   display:none;
+}
+html.realMobile .dropzone{
+  background:#F0ECE2;
+}
+html.realMobile #processBtn,
+html.realMobile #processBtn:disabled{
+  background:#33B4A7 !important;
+  color:#fff !important;
+  opacity:1 !important;
+  box-shadow:0 8px 18px rgba(51,180,167,.24) !important;
+}
+html.realMobile #processBtn .btnIcon,
+html.realMobile #processBtn:disabled .btnIcon{
+  background:rgba(255,255,255,.18) !important;
+  color:#fff !important;
 }
 #fileInput,
 input[type="file"][hidden]{
@@ -693,8 +708,8 @@ code {
       position:absolute;
       left:14px;
       right:14px;
-      top:calc(100% + 100px);
-      bottom:auto;
+      top:auto;
+      bottom:20px;
       width:auto;
       align-self:stretch;
       margin-top:0;
@@ -706,7 +721,8 @@ code {
       position:absolute;
       left:14px;
       right:14px;
-      top:calc(100% + 20px);
+      top:auto;
+      bottom:88px;
       justify-content:center;
     }
     body.hasGeneratedResults .card:first-child .creditInline{
