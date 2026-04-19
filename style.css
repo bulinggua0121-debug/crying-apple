@@ -414,12 +414,16 @@ input[type="file"][hidden]{
     margin:14px 0 8px;
     color:var(--text);
   }
-  .groupBoxes{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-top: 30px;
-  }
+.groupBoxes{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top: 30px;
+}
+#classifiedGroups:empty{
+  display:none !important;
+  margin:0 !important;
+}
   .groupBox{
     border:1px solid var(--line);
     border-radius:14px;
@@ -636,7 +640,7 @@ code {
     body:not(.hasGeneratedResults) .card:first-child{
       position:relative;
       overflow:visible;
-      margin-bottom:0;
+      margin-bottom:96px;
       padding-top:20px;
       padding-bottom:112px;
       min-height:calc(100vh - 220px);
@@ -647,6 +651,10 @@ code {
       background:transparent;
       box-shadow:none;
       backdrop-filter:none;
+    }
+    body.hasGeneratedResults .card:first-child .dropzone,
+    body.hasGeneratedResults .card:first-child #fileInput{
+      display:none !important;
     }
     .card:first-child .dropzone{
       order:1;
@@ -671,7 +679,7 @@ code {
       position:absolute;
       left:0;
       right:0;
-      bottom:-74px;
+      bottom:-58px;
       width:100%;
       align-self:stretch;
       margin-top:0;
