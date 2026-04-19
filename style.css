@@ -121,6 +121,15 @@ input[type="file"][hidden]{
   pointer-events:none !important;
 }
 
+html.realMobile #downloadBtn,
+html.realMobile #clearBtn{
+  display:none !important;
+}
+
+html.realMobile .actions{
+  justify-content:center !important;
+}
+
   .heroTag{
     display:inline-flex;
     align-items:center;
