@@ -1257,7 +1257,7 @@ html, body{
 
 @media (min-width: 721px){
   html:not(.realMobile) body:not(.hasGeneratedResults) .grid > .card:first-child{
-    margin-top:20px;
+    padding-bottom:34px;
   }
 }
 
