@@ -654,7 +654,18 @@ code {
     .card:first-child .creditInline{
       order:5;
     }
-    body:not(.hasGeneratedResults) .card:first-child .creditInline,
+    body:not(.hasGeneratedResults) .card:first-child .creditInline{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-54px;
+      width:100%;
+      align-self:stretch;
+      margin-top:0;
+      margin-bottom:0 !important;
+      padding-top:14px;
+      border-top:1px dashed #D6CFBF;
+    }
     body.hasGeneratedResults .card:first-child .creditInline{
       position:static;
       left:auto;
@@ -1674,16 +1685,16 @@ html[lang="zh-CN"] .titleBrand span{
 
 @media (max-width: 720px){
   html:not(.realMobile) .wrap{
-    max-width:1180px !important;
-    padding:26px 20px 34px !important;
+    max-width:760px !important;
+    padding:20px 14px 28px !important;
   }
   html:not(.realMobile) .grid{
-    grid-template-columns:360px 400px !important;
-    gap:18px !important;
+    grid-template-columns:1fr !important;
+    gap:14px !important;
   }
   html:not(.realMobile) .card{
-    padding:18px !important;
-    border-radius:30px !important;
+    padding:16px !important;
+    border-radius:22px !important;
   }
   html:not(.realMobile) .sub{
     display:block !important;
@@ -1693,9 +1704,9 @@ html[lang="zh-CN"] .titleBrand span{
     top:auto !important;
     z-index:auto !important;
     flex-direction:row !important;
-    align-items:flex-end !important;
+    align-items:center !important;
     justify-content:space-between !important;
-    gap:16px !important;
+    gap:12px !important;
     margin:0 0 8px !important;
     padding:0 !important;
     background:transparent !important;
@@ -1705,7 +1716,7 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) .titleBrand{
     width:auto !important;
-    gap:14px !important;
+    gap:12px !important;
     align-items:center !important;
     justify-content:flex-start !important;
     text-align:left !important;
@@ -1717,7 +1728,7 @@ html[lang="zh-CN"] .titleBrand span{
     flex:0 0 54px !important;
   }
   html:not(.realMobile) .titleBrand span{
-    font-size:32px !important;
+    font-size:28px !important;
     line-height:1 !important;
     text-align:left !important;
   }
@@ -1725,8 +1736,8 @@ html[lang="zh-CN"] .titleBrand span{
     width:auto !important;
     justify-content:flex-end !important;
     align-items:center !important;
-    flex-wrap:nowrap !important;
-    gap:10px !important;
+    flex-wrap:wrap !important;
+    gap:8px !important;
     padding:0 !important;
     border-radius:0 !important;
     background:transparent !important;
@@ -1735,7 +1746,7 @@ html[lang="zh-CN"] .titleBrand span{
   html:not(.realMobile) .toolBtn{
     min-height:44px !important;
     height:44px !important;
-    padding:0 18px !important;
+    padding:0 16px !important;
     white-space:nowrap !important;
     line-height:1 !important;
     text-align:center !important;
