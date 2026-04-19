@@ -1726,4 +1726,11 @@ html[lang="zh-CN"] .titleBrand span{
   html:not(.realMobile) #processBtn{
     transform:translateY(20px);
   }
+  html:not(.realMobile) #downloadBtn,
+  html:not(.realMobile) #clearBtn{
+    display:none !important;
+  }
+  html:not(.realMobile) .card:first-child .actions{
+    justify-content:center !important;
+  }
 }
