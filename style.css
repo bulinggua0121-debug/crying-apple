@@ -1926,18 +1926,25 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) .card:first-child .creditInline{
     position:relative !important;
-    width:100% !important;
-    align-self:stretch !important;
+    width:auto !important;
+    align-self:auto !important;
     margin-top:20px !important;
-    margin-bottom:0 !important;
-    padding-top:16px !important;
-    border-top:1px dashed #D6CFBF !important;
+    margin-bottom:12px !important;
+    padding-top:28px !important;
+    border-top:none !important;
   }
   html:not(.realMobile) .card:first-child .creditInline::before{
-    display:none !important;
+    display:block !important;
+    content:"" !important;
+    position:absolute !important;
+    top:0 !important;
+    left:50% !important;
+    width:calc(100% + 16px) !important;
+    transform:translateX(-50%) !important;
+    border-top:1px dashed #D6CFBF !important;
   }
   html:not(.realMobile) .card:first-child .creditTextTag{
-    transform:none !important;
+    transform:translateY(10px) !important;
   }
 }
 
@@ -1990,5 +1997,13 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) .outputCard img{
     height:52px !important;
+  }
+  html:not(.realMobile) .credit{
+    font-size:11px !important;
+    margin-bottom:8px !important;
+  }
+  html:not(.realMobile) .creditTextTag{
+    width:100% !important;
+    transform:translateY(6px) !important;
   }
 }
