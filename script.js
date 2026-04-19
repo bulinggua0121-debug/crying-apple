@@ -119,10 +119,21 @@ const state = {
   previewToken: 0,
 };
 
-const runtime = {
-  isElectron: /Electron/i.test(navigator.userAgent || ""),
-  isMobile: !/Electron/i.test(navigator.userAgent || "") && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || ""),
-};
+const runtime = (() => {
+  const ua = navigator.userAgent || "";
+  const isElectron = /Electron/i.test(ua);
+  const uaMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+  const coarsePointer = typeof window.matchMedia === "function"
+    ? window.matchMedia("(pointer: coarse)").matches
+    : false;
+  const touchDevice = (navigator.maxTouchPoints || 0) > 1;
+  const smallScreen = Math.min(window.innerWidth || 0, window.innerHeight || 0) <= 900;
+
+  return {
+    isElectron,
+    isMobile: !isElectron && (uaMobile || (coarsePointer && touchDevice && smallScreen)),
+  };
+})();
 
 document.documentElement.classList.toggle("realMobile", runtime.isMobile);
 
@@ -1888,6 +1899,9 @@ function openFolderPicker() {
   input.webkitdirectory = true;
   input.directory = true;
   input.hidden = true;
+  input.setAttribute("aria-hidden", "true");
+  input.tabIndex = -1;
+  input.style.cssText = "position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;";
   input.onchange = (e) => {
     const files = [...(e.target.files || [])];
     setFiles(files);
@@ -2141,6 +2155,9 @@ function createStyleGrid(container, type, presets){
       const input = document.createElement("input");
       input.type = "file";
       input.accept = "image/png,image/*";
+      input.setAttribute("aria-hidden", "true");
+      input.tabIndex = -1;
+      input.style.cssText = "position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;";
       input.onchange = e => {
         const file = e.target.files && e.target.files[0];
         if(!file) return;
@@ -2156,7 +2173,9 @@ function createStyleGrid(container, type, presets){
         [...container.children].forEach(n=>n.classList.remove("active"));
         add.classList.add("active");
         applyStyle();
+        input.remove();
       };
+      document.body.appendChild(input);
       input.click();
     };
   }
