@@ -99,7 +99,7 @@
     justify-content: center;
     text-align: center;
     padding: 18px;
-    background: #FBF8F1;
+    background: #F0ECE2;
     transition: .2s ease;
     cursor: pointer;
   }
@@ -649,10 +649,10 @@ code {
     body:not(.hasGeneratedResults) .card:first-child{
       position:relative;
       overflow:visible;
-      margin-bottom:96px;
+      margin-bottom:188px;
       padding-top:20px;
-      padding-bottom:72px;
-      min-height:calc(100vh - 280px);
+      padding-bottom:20px;
+      min-height:auto;
     }
     body.hasGeneratedResults .card:first-child{
       padding-top:0;
@@ -675,11 +675,13 @@ code {
     }
     .card:first-child .actions{
       order:3;
-      margin-top:auto;
-      margin-bottom:60px;
+      margin-top:0;
+      margin-bottom:0;
     }
     body:not(.hasGeneratedResults) .card:first-child #processBtn{
-      transform:translateY(30px);
+      transform:none;
+      width:100%;
+      min-width:0;
     }
     .card:first-child #classifiedGroups{
       order:4;
@@ -689,15 +691,23 @@ code {
     }
     body:not(.hasGeneratedResults) .card:first-child .creditInline{
       position:absolute;
-      left:0;
-      right:0;
-      bottom:-58px;
-      width:100%;
+      left:14px;
+      right:14px;
+      top:calc(100% + 100px);
+      bottom:auto;
+      width:auto;
       align-self:stretch;
       margin-top:0;
       margin-bottom:0 !important;
       padding-top:14px;
       border-top:1px dashed #D6CFBF;
+    }
+    body:not(.hasGeneratedResults) .card:first-child .actions{
+      position:absolute;
+      left:14px;
+      right:14px;
+      top:calc(100% + 20px);
+      justify-content:center;
     }
     body.hasGeneratedResults .card:first-child .creditInline{
       position:static;
