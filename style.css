@@ -169,6 +169,14 @@ html.realMobile .actions{
     margin-bottom:12px;
     padding-top:28px;
   }
+  .creditSingleLine{
+    display:none;
+    color:#8A8578;
+    font-size:12px;
+    line-height:1.6;
+    text-align:center;
+    white-space:nowrap;
+  }
   .creditInline::before{
     content:"";
     position:absolute;
@@ -726,6 +734,7 @@ code {
       justify-content:center;
     }
     html.realMobile body:not(.hasGeneratedResults) .card:first-child{
+      margin-top:10px;
       margin-bottom:208px;
       padding-bottom:20px;
     }
@@ -733,7 +742,7 @@ code {
       position:absolute;
       left:14px;
       right:14px;
-      top:calc(100% + 20px);
+      top:calc(100% + 30px);
       bottom:auto;
       justify-content:center;
       margin:0;
@@ -746,6 +755,9 @@ code {
       bottom:auto;
       width:auto;
       margin:0 !important;
+    }
+    html.realMobile body.hasGeneratedResults .card:first-child{
+      margin-top:10px;
     }
     html.realMobile .card:first-child .dropzone{
       min-height:274px;
@@ -761,6 +773,12 @@ code {
       margin-bottom:56px !important;
       padding-top:14px;
       border-top:1px dashed #D6CFBF;
+    }
+    html.realMobile body.hasGeneratedResults .card:first-child .creditInline .creditFeatures{
+      display:none;
+    }
+    html.realMobile body.hasGeneratedResults .card:first-child .creditInline .creditSingleLine{
+      display:block;
     }
     .card:first-child .creditInline::before{
       display:none;
