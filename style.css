@@ -751,13 +751,17 @@ code {
       position:absolute;
       left:14px;
       right:14px;
-      top:calc(100% + 128px);
+      top:calc(100% + 118px);
       bottom:auto;
       width:auto;
       margin:0 !important;
     }
     html.realMobile body.hasGeneratedResults .grid > .card:last-child{
       margin-top:10px;
+    }
+    html.realMobile .titleRow{
+      margin:-23px -14px 13px;
+      padding:23px 14px 13px;
     }
     html.realMobile .card:first-child .dropzone{
       min-height:274px;
