@@ -1949,8 +1949,15 @@ html[lang="zh-CN"] .titleBrand span{
     transform:translateY(10px) !important;
   }
   html:not(.realMobile) .creditFeatures{
-    flex-wrap:wrap !important;
-    row-gap:8px !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:12px !important;
+  }
+  html:not(.realMobile) .creditFeatures .subFeature{
+    width:auto !important;
+    justify-content:center !important;
   }
 }
 
@@ -2009,7 +2016,15 @@ html[lang="zh-CN"] .titleBrand span{
     margin-bottom:8px !important;
   }
   html:not(.realMobile) .creditTextTag{
-    width:100% !important;
+    width:auto !important;
     transform:translateY(0) !important;
+  }
+  html:not(.realMobile) .creditFeatures{
+    gap:8px !important;
+  }
+  html:not(.realMobile) .creditFeatures .subFeature{
+    font-size:10px !important;
+    line-height:1.45 !important;
+    white-space:nowrap !important;
   }
 }
