@@ -709,7 +709,7 @@ code {
       left:14px;
       right:14px;
       top:auto;
-      bottom:calc(-100vh + 100% + 20px);
+      bottom:20px;
       width:auto;
       align-self:stretch;
       margin-top:0;
@@ -722,7 +722,7 @@ code {
       left:14px;
       right:14px;
       top:auto;
-      bottom:calc(-100vh + 100% + 88px);
+      bottom:88px;
       justify-content:center;
     }
     body.hasGeneratedResults .card:first-child .creditInline{
