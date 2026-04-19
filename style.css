@@ -1843,12 +1843,12 @@ html[lang="zh-CN"] .titleBrand span{
     overflow:visible !important;
     margin-bottom:0 !important;
     padding-top:18px !important;
-    padding-bottom:28px !important;
+    padding-bottom:36px !important;
     min-height:auto !important;
   }
   html:not(.realMobile) body.hasGeneratedResults .card:first-child{
     padding-top:18px !important;
-    padding-bottom:28px !important;
+    padding-bottom:36px !important;
     border:1px solid rgba(221,214,200,.92) !important;
     background:rgba(255,253,248,.92) !important;
     box-shadow:0 10px 24px rgba(88,72,36,0.08) !important;
@@ -1863,6 +1863,7 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) .card:first-child #stylePanelInline{
     margin-top:30px !important;
+    margin-bottom:24px !important;
   }
   html:not(.realMobile) .card:first-child .actions{
     margin-top:16px !important;
