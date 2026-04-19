@@ -1766,4 +1766,7 @@ html[lang="zh-CN"] .titleBrand span{
   html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .actions{
     order:3;
   }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .creditInline{
+    order:4;
+  }
 }
