@@ -1711,9 +1711,6 @@ html[lang="zh-CN"] .titleBrand span{
 }
 
 @media (max-width: 720px){
-  html:not(.realMobile) #processBtn{
-    transform:translateY(20px);
-  }
   html:not(.realMobile) body.hasGeneratedResults .grid > .card:first-child{
     order:2;
   }
