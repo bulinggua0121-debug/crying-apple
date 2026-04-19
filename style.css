@@ -669,6 +669,9 @@ code {
       margin-top:auto;
       margin-bottom:80px;
     }
+    body:not(.hasGeneratedResults) .card:first-child #processBtn{
+      transform:translateY(30px);
+    }
     .card:first-child #classifiedGroups{
       order:4;
     }
