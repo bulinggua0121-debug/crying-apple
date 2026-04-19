@@ -1711,9 +1711,9 @@ html[lang="zh-CN"] .titleBrand span{
     position:static !important;
     top:auto !important;
     z-index:auto !important;
-    flex-direction:row !important;
-    align-items:center !important;
-    justify-content:space-between !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    justify-content:flex-start !important;
     gap:12px !important;
     margin:0 0 8px !important;
     padding:0 !important;
@@ -1723,7 +1723,7 @@ html[lang="zh-CN"] .titleBrand span{
     border-bottom:none !important;
   }
   html:not(.realMobile) .titleBrand{
-    width:auto !important;
+    width:100% !important;
     gap:12px !important;
     align-items:center !important;
     justify-content:flex-start !important;
@@ -1741,8 +1741,8 @@ html[lang="zh-CN"] .titleBrand span{
     text-align:left !important;
   }
   html:not(.realMobile) .topTools{
-    width:auto !important;
-    justify-content:flex-end !important;
+    width:100% !important;
+    justify-content:flex-start !important;
     align-items:center !important;
     flex-wrap:wrap !important;
     gap:8px !important;
@@ -1926,18 +1926,18 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) .card:first-child .creditInline{
     position:relative !important;
-    width:auto !important;
-    align-self:auto !important;
-    margin-top:56px !important;
-    margin-bottom:12px !important;
-    padding-top:28px !important;
-    border-top:none !important;
+    width:100% !important;
+    align-self:stretch !important;
+    margin-top:20px !important;
+    margin-bottom:0 !important;
+    padding-top:16px !important;
+    border-top:1px dashed #D6CFBF !important;
   }
   html:not(.realMobile) .card:first-child .creditInline::before{
-    display:block !important;
+    display:none !important;
   }
   html:not(.realMobile) .card:first-child .creditTextTag{
-    transform:translateY(10px) !important;
+    transform:none !important;
   }
 }
 
