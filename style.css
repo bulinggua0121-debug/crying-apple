@@ -1729,9 +1729,9 @@ html[lang="zh-CN"] .titleBrand span{
     display:none !important;
   }
   html:not(.realMobile) #processBtn{
-    height:80px !important;
-    min-height:80px !important;
-    border-radius:40px !important;
+    height:60px !important;
+    min-height:60px !important;
+    border-radius:30px !important;
   }
   .card:first-child .actions{
     justify-content:center !important;
