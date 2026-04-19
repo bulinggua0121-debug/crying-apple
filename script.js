@@ -2009,8 +2009,18 @@ if (els.donateModal) {
     }
   });
 }
-if (els.wechatQr) els.wechatQr.addEventListener("click", () => openQrPreview(els.wechatQr.src, els.wechatQr.alt));
-if (els.alipayQr) els.alipayQr.addEventListener("click", () => openQrPreview(els.alipayQr.src, els.alipayQr.alt));
+if (els.wechatQr) {
+  els.wechatQr.addEventListener("click", () => {
+    if (!runtime.isMobile) return;
+    openQrPreview(els.wechatQr.src, els.wechatQr.alt);
+  });
+}
+if (els.alipayQr) {
+  els.alipayQr.addEventListener("click", () => {
+    if (!runtime.isMobile) return;
+    openQrPreview(els.alipayQr.src, els.alipayQr.alt);
+  });
+}
 if (els.qrPreviewModal) {
   els.qrPreviewModal.addEventListener("click", e => {
     if (
