@@ -1728,6 +1728,11 @@ html[lang="zh-CN"] .titleBrand span{
   #clearBtn{
     display:none !important;
   }
+  html:not(.realMobile) #processBtn{
+    height:60px !important;
+    min-height:60px !important;
+    border-radius:30px !important;
+  }
   .card:first-child .actions{
     justify-content:center !important;
   }
