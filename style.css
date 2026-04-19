@@ -652,7 +652,7 @@ code {
       margin-bottom:96px;
       padding-top:20px;
       padding-bottom:72px;
-      min-height:calc(100vh - 260px);
+      min-height:calc(100vh - 280px);
     }
     body.hasGeneratedResults .card:first-child{
       padding-top:0;
@@ -1252,6 +1252,12 @@ html, body{
     display:block;
     margin:0 auto !important;
     align-self:flex-start !important;
+  }
+}
+
+@media (min-width: 721px){
+  html:not(.realMobile) body:not(.hasGeneratedResults) .grid > .card:first-child{
+    margin-top:20px;
   }
 }
 
