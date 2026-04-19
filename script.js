@@ -121,8 +121,10 @@ const state = {
 
 const runtime = {
   isElectron: /Electron/i.test(navigator.userAgent || ""),
-  isMobile: /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || ""),
+  isMobile: !/Electron/i.test(navigator.userAgent || "") && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || ""),
 };
+
+document.documentElement.classList.toggle("realMobile", runtime.isMobile);
 
 const els = {
   fileInput: document.getElementById("fileInput"),
