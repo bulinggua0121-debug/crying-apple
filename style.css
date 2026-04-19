@@ -1751,3 +1751,19 @@ html[lang="zh-CN"] .titleBrand span{
     justify-content:center !important;
   }
 }
+
+@media (min-width: 721px){
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child{
+    display:flex;
+    flex-direction:column;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .dropzone{
+    order:1;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child #stylePanelInline{
+    order:2;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .actions{
+    order:3;
+  }
+}
