@@ -627,7 +627,7 @@ code {
       overflow:visible;
       margin-bottom:0;
       padding-top:20px;
-      min-height:calc(100vh - 260px);
+      min-height:calc(100vh - 220px);
     }
     body.hasGeneratedResults .card:first-child{
       padding-top:0;
@@ -646,7 +646,7 @@ code {
     }
     .card:first-child .actions{
       order:3;
-      margin-top:18px;
+      margin-top:12px;
     }
     .card:first-child #classifiedGroups{
       order:4;
@@ -663,7 +663,7 @@ code {
       width:100%;
       align-self:stretch;
       margin-top:auto;
-      margin-bottom:40px !important;
+      margin-bottom:56px !important;
       padding-top:14px;
       border-top:1px dashed #D6CFBF;
     }
@@ -679,7 +679,7 @@ code {
       height: 6px;
     }
     .dropzone{
-      min-height: 156px;
+      min-height: 234px;
       border-radius: 15px;
       padding: 14px;
     }
