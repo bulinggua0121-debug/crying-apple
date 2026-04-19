@@ -137,6 +137,8 @@ const els = {
   canvas: document.getElementById("preview"),
   langToggle: document.getElementById("langToggle"),
   donateBtn: document.getElementById("donateBtn"),
+  mobileDownloadBtn: document.getElementById("mobileDownloadBtn"),
+  mobileResetBtn: document.getElementById("mobileResetBtn"),
   donateModal: document.getElementById("donateModal"),
   closeDonateBtn: document.getElementById("closeDonateBtn"),
   wechatQr: document.getElementById("wechatQr"),
@@ -147,6 +149,24 @@ const els = {
 };
 const ctx = els.canvas.getContext("2d");
 
+const mobileLayoutSlots = {
+  stylePanel: {
+    el: document.getElementById("stylePanelInline"),
+  },
+  clockPanel: {
+    el: document.getElementById("rightClockWrap"),
+  },
+};
+
+if (mobileLayoutSlots.stylePanel.el) {
+  mobileLayoutSlots.stylePanel.parent = mobileLayoutSlots.stylePanel.el.parentNode;
+  mobileLayoutSlots.stylePanel.next = mobileLayoutSlots.stylePanel.el.nextSibling;
+}
+if (mobileLayoutSlots.clockPanel.el) {
+  mobileLayoutSlots.clockPanel.parent = mobileLayoutSlots.clockPanel.el.parentNode;
+  mobileLayoutSlots.clockPanel.next = mobileLayoutSlots.clockPanel.el.nextSibling;
+}
+
 const I18N = {
   zh: {
     page_title: "动森图纸标注站",
@@ -155,6 +175,7 @@ const I18N = {
     subtitle_flow: "自动裁切、拼接、标注",
     subtitle_platform: "支持 Switch / Lite / OLED",
     upload_prompt: "拖入截图或点击上传文件夹",
+    upload_prompt_mobile: "点击上传截图",
     upload_loaded: "载入成功",
     upload_success: "标注完成",
     upload_downloaded: "下载完成，继续标注",
@@ -174,6 +195,8 @@ const I18N = {
     clock_bless: "早点休息哦宝贝",
     donate_button_web: "macOS客户端",
     donate_button_mobile: "打赏支持",
+    donate_title_mobile: "打赏支持",
+    donate_desc_mobile: "如果这个工具帮到了你，欢迎扫码支持一下这个小项目。",
     donate_title_web: "下载与支持",
     donate_desc_web: "桌面版下载入口和支持二维码都在这里。",
     donate_button_desktop: "打赏支持",
@@ -211,6 +234,7 @@ const I18N = {
     subtitle_flow: "Auto crop, stitch, and annotate",
     subtitle_platform: "Supports Switch / Lite / OLED",
     upload_prompt: "Drop screenshots here or click to upload a folder",
+    upload_prompt_mobile: "Tap to upload screenshots",
     upload_loaded: "Loaded",
     upload_success: "Completed",
     upload_downloaded: "Downloaded, continue annotating",
@@ -230,6 +254,8 @@ const I18N = {
     clock_bless: "Tag it. Mark it. Share it.",
     donate_button_web: "Desktop for macOS",
     donate_button_mobile: "Support the Project",
+    donate_title_mobile: "Support the Project",
+    donate_desc_mobile: "If this tool helped you, you can support this small project by scanning one of the QR codes below.",
     donate_title_web: "Download & Support",
     donate_desc_web: "The desktop download entry and support QR codes are both here.",
     donate_button_desktop: "Support the Project",
@@ -296,7 +322,10 @@ function rerenderStatus() {
 function syncUploadPrompt() {
   const uploadPrompt = document.querySelector('[data-i18n="upload_prompt"]');
   if (!uploadPrompt) return;
-  uploadPrompt.textContent = getMessage(state.uploadPromptKey || "upload_prompt");
+  const baseKey = state.uploadPromptKey || "upload_prompt";
+  const mobileKey = `${baseKey}_mobile`;
+  const resolvedKey = runtime.isMobile && I18N[state.lang]?.[mobileKey] ? mobileKey : baseKey;
+  uploadPrompt.textContent = getMessage(resolvedKey);
 }
 
 function syncDonateAssets() {
@@ -311,7 +340,7 @@ function syncDonateAssets() {
 }
 
 function getDonateMessageKey(baseKey) {
-  if (!runtime.isElectron && runtime.isMobile && baseKey === "donate_button") {
+  if (!runtime.isElectron && runtime.isMobile && ["donate_button", "donate_title", "donate_desc"].includes(baseKey)) {
     return `${baseKey}_mobile`;
   }
   return runtime.isElectron ? `${baseKey}_desktop` : `${baseKey}_web`;
@@ -333,12 +362,77 @@ function syncDonateUI() {
   }
 
   if (els.donateDownloadLink) {
-    els.donateDownloadLink.hidden = runtime.isElectron;
+    els.donateDownloadLink.hidden = runtime.isElectron || runtime.isMobile;
   }
 
   if (els.donateHint) {
     els.donateHint.classList.toggle("donateHintDesktop", runtime.isElectron);
   }
+
+  if (els.closeDonateBtn) {
+    els.closeDonateBtn.setAttribute("aria-label", getMessage("donate_close"));
+    els.closeDonateBtn.setAttribute("title", getMessage("donate_close"));
+  }
+
+  if (els.mobileResetBtn) {
+    els.mobileResetBtn.setAttribute("aria-label", getMessage("reset_button"));
+    els.mobileResetBtn.setAttribute("title", getMessage("reset_button"));
+  }
+}
+
+function setMobileResultMode(active) {
+  if (!runtime.isMobile || !els.dropzone) return;
+  els.dropzone.classList.toggle("mobileResultHidden", !!active);
+  document.body.classList.toggle("mobileResultMode", !!active);
+}
+
+function setHasGeneratedResults(active) {
+  document.body.classList.toggle("hasGeneratedResults", !!active);
+  syncMobileGeneratedLayout(!!active);
+}
+
+function restoreNodePosition(slot) {
+  if (!slot?.el || !slot.parent) return;
+  if (slot.next && slot.next.parentNode === slot.parent) {
+    slot.parent.insertBefore(slot.el, slot.next);
+  } else {
+    slot.parent.appendChild(slot.el);
+  }
+}
+
+function syncMobileGeneratedLayout(active) {
+  const stylePanel = mobileLayoutSlots.stylePanel.el;
+  const clockPanel = mobileLayoutSlots.clockPanel.el;
+  if (!stylePanel || !clockPanel) return;
+
+  if (!runtime.isMobile || !active) {
+    restoreNodePosition(mobileLayoutSlots.stylePanel);
+    restoreNodePosition(mobileLayoutSlots.clockPanel);
+    return;
+  }
+
+  const previewCard = els.outputGallery?.parentNode;
+  const leftCard = mobileLayoutSlots.stylePanel.parent;
+  const creditBlock = document.querySelector(".creditInline");
+  if (!previewCard || !leftCard) return;
+
+  previewCard.insertBefore(stylePanel, clockPanel);
+  if (creditBlock && creditBlock.parentNode === leftCard) {
+    leftCard.insertBefore(clockPanel, creditBlock);
+  } else {
+    leftCard.appendChild(clockPanel);
+  }
+}
+
+function scrollToResults() {
+  if (!runtime.isMobile) return;
+  const target = document.querySelector(".previewWrap") || els.outputGallery;
+  if (!target) return;
+  requestAnimationFrame(() => {
+    try {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (_) {}
+  });
 }
 
 function applyLanguage() {
@@ -475,24 +569,32 @@ function setActionButtonsIdle() {
   paintActionButton(els.processBtn, false);
   paintActionButton(els.downloadBtn, false);
   paintActionButton(els.clearBtn, false);
+  paintActionButton(els.mobileDownloadBtn, false);
+  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = true;
 }
 
 function setActionButtonsUploaded() {
   paintActionButton(els.processBtn, true);
   paintActionButton(els.downloadBtn, false);
   paintActionButton(els.clearBtn, false);
+  paintActionButton(els.mobileDownloadBtn, false);
+  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = true;
 }
 
 function setActionButtonsDownloadedReset() {
   paintActionButton(els.processBtn, false);
   paintActionButton(els.downloadBtn, false);
   paintActionButton(els.clearBtn, false);
+  paintActionButton(els.mobileDownloadBtn, false);
+  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = false;
 }
 
 function setActionButtonsDone() {
   paintActionButton(els.processBtn, false);
   paintActionButton(els.downloadBtn, true);
   paintActionButton(els.clearBtn, false);
+  paintActionButton(els.mobileDownloadBtn, true);
+  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = false;
 }
 
 function captureScrollY(){
@@ -1654,7 +1756,10 @@ async function processImages() {
     if (myToken !== state.processToken) return;
 
     els.downloadBtn.disabled = false;
+    if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = false;
     setActionButtonsDone();
+    setMobileResultMode(true);
+    setHasGeneratedResults(true);
 
     const previewHint = document.getElementById("previewHint");
     if (previewHint) previewHint.style.display = "block";
@@ -1687,10 +1792,13 @@ function clearAll() {
   els.fileInput.value = "";
   if (els.thumbs) els.thumbs.innerHTML = "";
   if (els.dropzone) els.dropzone.classList.remove("loaded");
+  setMobileResultMode(false);
+  setHasGeneratedResults(false);
   els.classifiedGroups.innerHTML = "";
   els.outputGallery.innerHTML = "";
   els.processBtn.disabled = true;
   els.downloadBtn.disabled = true;
+  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = true;
   resetCanvas();
   revokeCustomStyleUrl("highlight");
   revokeCustomStyleUrl("badge");
@@ -1772,6 +1880,8 @@ function setFiles(fileList) {
   const files = sortFiles(fileList);
   state.files = files;
   state.uploadPromptKey = files.length ? "upload_loaded" : "upload_prompt";
+  setMobileResultMode(false);
+  setHasGeneratedResults(false);
   if (els.dropzone) els.dropzone.classList.toggle("loaded", files.length > 0);
   syncUploadPrompt();
   renderThumbs();
@@ -1779,6 +1889,7 @@ function setFiles(fileList) {
   els.outputGallery.innerHTML = "";
   els.processBtn.disabled = files.length === 0;
   els.downloadBtn.disabled = true;
+  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = true;
   revokeBlobUrl();
 
   if (!files.length) {
@@ -1818,7 +1929,7 @@ els.dropzone.addEventListener("click", e => {
 
 els.processBtn.addEventListener("click", processImages);
 
-els.downloadBtn.addEventListener("click", () => {
+function triggerDownload() {
   (async () => {
     if (runtime.isMobile) {
       const handled = await downloadOutputsForMobile();
@@ -1846,7 +1957,11 @@ els.downloadBtn.addEventListener("click", () => {
     console.error(error);
     setStatusMessage("status_failed", { message: error.message || "Download failed" });
   });
-});
+}
+
+els.downloadBtn.addEventListener("click", triggerDownload);
+if (els.mobileDownloadBtn) els.mobileDownloadBtn.addEventListener("click", triggerDownload);
+if (els.mobileResetBtn) els.mobileResetBtn.addEventListener("click", clearAll);
 
 els.clearBtn.addEventListener("click", clearAll);
 if (els.langToggle) els.langToggle.addEventListener("click", toggleLanguage);
@@ -1900,8 +2015,9 @@ Promise.all([
   document.fonts.ready,
 ]).then(() => {
   resetCanvas();
-  setActionButtonsIdle();
-  applyLanguage();
+setActionButtonsIdle();
+setHasGeneratedResults(false);
+applyLanguage();
 });
 
 function scheduleStyleRerender() {

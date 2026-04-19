@@ -18,6 +18,8 @@
     <div class="topTools">
       <button id="langToggle" class="toolBtn secondary" type="button">EN</button>
       <button id="donateBtn" class="toolBtn" type="button" data-i18n="donate_button">点击下载</button>
+      <button id="mobileDownloadBtn" class="toolBtn secondary" type="button"><span class="btnIcon">🍎</span><span class="btnLabel" data-i18n="download_button">下载图片</span></button>
+      <button id="mobileResetBtn" class="toolBtn secondary" type="button" aria-label="重新开始" title="重新开始"><span class="btnIcon">↺</span></button>
     </div>
   </div>
   <div class="sub">
@@ -49,7 +51,7 @@
 
       <div class="actions">
         <button id="processBtn" disabled><span class="btnIcon">✦</span><span class="btnLabel" data-i18n="start_button">开始标注</span></button>
-        <button id="downloadBtn" class="secondary" disabled><span class="btnIcon">⬇</span><span class="btnLabel" data-i18n="download_button">下载图片</span></button>
+        <button id="downloadBtn" class="secondary" disabled><span class="btnIcon">🍎</span><span class="btnLabel" data-i18n="download_button">下载图片</span></button>
         <button id="clearBtn" class="secondary"><span class="btnIcon">↺</span><span class="btnLabel" data-i18n="reset_button">重新开始</span></button>
       </div>
 
@@ -86,14 +88,6 @@
             </div>
             <div class="styleGrid styleGridText" id="textStyles"></div>
           </div>
-        </div>
-      </div>
-
-      <div class="mini miniCentered">
-        <span class="miniLabel" data-i18n="threshold_label">分类灵敏度：</span>
-        <div class="miniRangeRow">
-          <input id="thresholdSlider" type="range" min="0.70" max="0.99" step="0.01" value="0.96" style="width:180px; vertical-align:middle;">
-          <span id="thresholdVal">0.96</span>
         </div>
       </div>
 
@@ -144,7 +138,6 @@
         <div id="donateTitle" class="donateTitle" data-i18n="donate_title">支持这个工具</div>
         <div class="donateDesc" data-i18n="donate_desc">如果这个工具帮到了你，欢迎请作者喝杯咖啡。</div>
       </div>
-      <button id="closeDonateBtn" class="secondary donateCloseBtn" type="button" data-i18n="donate_close">关闭</button>
     </div>
     <div class="donateGrid">
       <div class="donateItem">
