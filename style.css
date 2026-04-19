@@ -1718,3 +1718,9 @@ html[lang="zh-CN"] .titleBrand span{
     order:1;
   }
 }
+
+@media (max-width: 600px){
+  html:not(.realMobile) #processBtn{
+    transform:translateY(20px);
+  }
+}
