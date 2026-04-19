@@ -143,6 +143,8 @@ const els = {
   closeDonateBtn: document.getElementById("closeDonateBtn"),
   wechatQr: document.getElementById("wechatQr"),
   alipayQr: document.getElementById("alipayQr"),
+  qrPreviewModal: document.getElementById("qrPreviewModal"),
+  qrPreviewImage: document.getElementById("qrPreviewImage"),
   donateHint: document.getElementById("donateHint"),
   donateDownloadLink: document.getElementById("donateDownloadLink"),
   donateHintAfter: document.getElementById("donateHintAfter"),
@@ -474,6 +476,21 @@ function closeDonateModal() {
   els.donateModal.setAttribute("aria-hidden", "true");
 }
 
+function openQrPreview(src, alt = "") {
+  if (!els.qrPreviewModal || !els.qrPreviewImage || !src) return;
+  els.qrPreviewImage.src = src;
+  els.qrPreviewImage.alt = alt;
+  els.qrPreviewModal.classList.remove("hidden");
+  els.qrPreviewModal.setAttribute("aria-hidden", "false");
+}
+
+function closeQrPreview() {
+  if (!els.qrPreviewModal || !els.qrPreviewImage) return;
+  els.qrPreviewModal.classList.add("hidden");
+  els.qrPreviewModal.setAttribute("aria-hidden", "true");
+  els.qrPreviewImage.removeAttribute("src");
+}
+
 function showPreviewLoading(){
   state.previewToken += 1;
   const el = document.getElementById("previewLoading");
@@ -513,6 +530,7 @@ function paintActionButton(btn, active) {
   btn.style.background = active ? "#33B4A7" : "#F0ECE2";
   btn.style.color = active ? "#FFFFFF" : "#7A7568";
   btn.style.boxShadow = active ? "0 8px 18px rgba(51,180,167,.24)" : "none";
+  btn.style.borderColor = active ? "transparent" : "";
   if (icon) {
     icon.style.background = active ? "rgba(255,255,255,.22)" : "rgba(87,83,71,.08)";
     icon.style.color = active ? "#FFFFFF" : "inherit";
@@ -586,7 +604,8 @@ function setActionButtonsDownloadedReset() {
   paintActionButton(els.downloadBtn, false);
   paintActionButton(els.clearBtn, false);
   paintActionButton(els.mobileDownloadBtn, false);
-  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = false;
+  els.downloadBtn.disabled = true;
+  if (els.mobileDownloadBtn) els.mobileDownloadBtn.disabled = true;
 }
 
 function setActionButtonsDone() {
@@ -1974,8 +1993,23 @@ if (els.donateModal) {
     }
   });
 }
+if (els.wechatQr) els.wechatQr.addEventListener("click", () => openQrPreview(els.wechatQr.src, els.wechatQr.alt));
+if (els.alipayQr) els.alipayQr.addEventListener("click", () => openQrPreview(els.alipayQr.src, els.alipayQr.alt));
+if (els.qrPreviewModal) {
+  els.qrPreviewModal.addEventListener("click", e => {
+    if (
+      (e.target && e.target.dataset && e.target.dataset.closeQrPreview === "true") ||
+      e.target === els.qrPreviewModal
+    ) {
+      closeQrPreview();
+    }
+  });
+}
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeDonateModal();
+  if (e.key === "Escape") {
+    closeQrPreview();
+    closeDonateModal();
+  }
 });
 
 const thresholdSlider = document.getElementById('thresholdSlider');
