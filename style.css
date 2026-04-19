@@ -725,6 +725,28 @@ code {
       bottom:88px;
       justify-content:center;
     }
+    html.realMobile body:not(.hasGeneratedResults) .card:first-child{
+      margin-bottom:188px;
+      padding-bottom:20px;
+    }
+    html.realMobile body:not(.hasGeneratedResults) .card:first-child .actions{
+      position:absolute;
+      left:14px;
+      right:14px;
+      top:calc(100% + 20px);
+      bottom:auto;
+      justify-content:center;
+      margin:0;
+    }
+    html.realMobile body:not(.hasGeneratedResults) .card:first-child .creditInline{
+      position:absolute;
+      left:14px;
+      right:14px;
+      top:calc(100% + 108px);
+      bottom:auto;
+      width:auto;
+      margin:0 !important;
+    }
     body.hasGeneratedResults .card:first-child .creditInline{
       position:static;
       left:auto;
@@ -1760,6 +1782,18 @@ html[lang="zh-CN"] .titleBrand span{
   #clearBtn{
     display:none !important;
   }
+  html:not(.realMobile) #processBtn,
+  html:not(.realMobile) #processBtn:disabled{
+    background:#33B4A7 !important;
+    color:#fff !important;
+    opacity:1 !important;
+    box-shadow:0 8px 18px rgba(51,180,167,.24) !important;
+  }
+  html:not(.realMobile) #processBtn .btnIcon,
+  html:not(.realMobile) #processBtn:disabled .btnIcon{
+    background:rgba(255,255,255,.18) !important;
+    color:#fff !important;
+  }
   html:not(.realMobile) #processBtn{
     height:60px !important;
     min-height:60px !important;
@@ -1789,6 +1823,28 @@ html[lang="zh-CN"] .titleBrand span{
   }
   html:not(.realMobile) body.hasGeneratedResults .grid > .card:last-child{
     order:1;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child{
+    margin-bottom:188px;
+    padding-bottom:20px;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .actions{
+    position:absolute;
+    left:14px;
+    right:14px;
+    top:calc(100% + 20px);
+    bottom:auto;
+    justify-content:center !important;
+    margin:0;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .creditInline{
+    position:absolute;
+    left:14px;
+    right:14px;
+    top:calc(100% + 108px);
+    bottom:auto;
+    width:auto;
+    margin:0 !important;
   }
 }
 
