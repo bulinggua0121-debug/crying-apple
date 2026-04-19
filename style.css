@@ -1714,4 +1714,10 @@ html[lang="zh-CN"] .titleBrand span{
   html:not(.realMobile) #processBtn{
     transform:translateY(20px);
   }
+  html:not(.realMobile) body.hasGeneratedResults .grid > .card:first-child{
+    order:2;
+  }
+  html:not(.realMobile) body.hasGeneratedResults .grid > .card:last-child{
+    order:1;
+  }
 }
