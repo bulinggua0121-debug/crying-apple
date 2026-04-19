@@ -1731,6 +1731,22 @@ html[lang="zh-CN"] .titleBrand span{
   .card:first-child .actions{
     justify-content:center !important;
   }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child{
+    display:flex;
+    flex-direction:column;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .dropzone{
+    order:1;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child #stylePanelInline{
+    order:2;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .actions{
+    order:3;
+  }
+  html:not(.realMobile) body:not(.hasGeneratedResults) .card:first-child .creditInline{
+    order:4;
+  }
   html:not(.realMobile) body.hasGeneratedResults .grid > .card:first-child{
     order:2;
   }
