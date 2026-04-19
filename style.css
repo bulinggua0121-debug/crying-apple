@@ -1723,6 +1723,13 @@ html[lang="zh-CN"] .titleBrand span{
 }
 
 @media (max-width: 720px){
+  #downloadBtn,
+  #clearBtn{
+    display:none !important;
+  }
+  .card:first-child .actions{
+    justify-content:center !important;
+  }
   html:not(.realMobile) body.hasGeneratedResults .grid > .card:first-child{
     order:2;
   }
