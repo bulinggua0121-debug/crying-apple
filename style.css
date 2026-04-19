@@ -643,7 +643,7 @@ code {
       margin-bottom:96px;
       padding-top:20px;
       padding-bottom:72px;
-      min-height:calc(100vh - 220px);
+      min-height:calc(100vh - 260px);
     }
     body.hasGeneratedResults .card:first-child{
       padding-top:0;
