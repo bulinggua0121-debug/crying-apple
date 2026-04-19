@@ -669,12 +669,12 @@ code {
       order:1;
     }
     .card:first-child #stylePanelInline{
-      order:3;
+      order:2;
       margin-top:10px;
       transform:none;
     }
     .card:first-child .actions{
-      order:2;
+      order:3;
       margin-top:auto;
       margin-bottom:80px;
     }
