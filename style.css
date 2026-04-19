@@ -760,8 +760,8 @@ code {
       margin-top:10px;
     }
     html.realMobile .titleRow{
-      margin:-23px -14px 13px;
-      padding:23px 14px 13px;
+      margin:-18px -14px 13px;
+      padding:18px 14px 13px;
     }
     html.realMobile .card:first-child .dropzone{
       min-height:274px;
